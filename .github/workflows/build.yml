@@ -11,66 +11,53 @@ on:
       - master
 
 jobs:
-  build-macos:
-    name: 'Build macOS'
-    runs-on: macos-latest
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest'
+            args: '--target universal-apple-darwin'
+          - platform: 'windows-latest'
+            args: ''
+
+    runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      
-      - name: Install Rust
+
+      - name: Install Rust stable
         uses: dtolnay/rust-action@stable
         with:
-          targets: aarch64-apple-darwin,x86_64-apple-darwin
-      
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
       - name: Install frontend dependencies
         run: npm install --legacy-peer-deps
-      
+
       - name: Install Tauri CLI
         run: cargo install tauri-cli
-      
-      - name: Build universal macOS app
-        run: cargo tauri build --target universal-apple-darwin
-      
-      - name: Upload macOS .app
+
+      - name: Build Tauri app
+        run: cargo tauri build ${{ matrix.args }}
+
+      - name: Upload macOS artifacts
+        if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
           name: CGFD3D-Resource-Estimator-macOS
           path: |
-            src-tauri/target/universal-apple-darwin/release/bundle/macos/*.app
-            src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
+            src-tauri/target/*/release/bundle/macos/*.app
+            src-tauri/target/*/release/bundle/dmg/*.dmg
 
-  build-windows:
-    name: 'Build Windows'
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      
-      - name: Install Rust
-        uses: dtolnay/rust-action@stable
-      
-      - name: Install frontend dependencies
-        run: npm install --legacy-peer-deps
-      
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli
-      
-      - name: Build Windows app
-        run: cargo tauri build
-      
-      - name: Upload Windows .exe
+      - name: Upload Windows artifacts
+        if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: CGFD3D-Resource-Estimator-Windows
           path: |
-            src-tauri/target/release/bundle/msi/*.msi
-            src-tauri/target/release/bundle/nsis/*.exe
+            src-tauri/target/*/release/bundle/msi/*.msi
+            src-tauri/target/*/release/bundle/nsis/*.exe
