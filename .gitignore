@@ -1,0 +1,61 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# === Tauri / Rust ===
+# Rust 构建产物（巨量文件，绝对不能提交）
+src-tauri/target/
+src-tauri/Cargo.lock
+
+# Tauri 构建生成的产物（dmg、app、msi、exe 等）
+src-tauri/target/release/bundle/
+src-tauri/target/debug/bundle/
+
+# === 构建产物 ===
+# 如果你希望 dist 目录被 git 追踪（用于 GitHub Pages 或发布），
+# 可以注释掉下面这行。默认建议忽略。
+dist/
+
+# === macOS ===
+# 系统文件
+.AppleDouble
+.LSOverride
+
+# 缩略图
+._*
+
+# 回收站
+.Trashes
+
+# === Windows ===
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# === 临时文件 ===
+*.tmp
+*.bak
+*.swp
+*~

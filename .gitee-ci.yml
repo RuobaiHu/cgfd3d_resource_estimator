@@ -1,0 +1,31 @@
+# Gitee Go CI/CD 配置
+# 用于构建 Tauri Windows 应用
+# 注意：Gitee 免费版是否提供 Windows runner 需实际验证
+
+stages:
+  - build
+
+variables:
+  TAURI_PRIVATE_KEY: ""
+  TAURI_KEY_PASSWORD: ""
+
+build-windows:
+  stage: build
+  # Gitee Go 的 Windows runner 标签（需确认 Gitee 是否支持）
+  # 如果 windows 标签不可用，可尝试用 Docker 镜像构建
+  tags:
+    - windows
+  before_script:
+    - choco install nodejs -y
+    - choco install rustup.install -y
+    - refreshenv
+    - npm install --legacy-peer-deps
+  script:
+    - npm run build
+    - cargo install tauri-cli
+    - cargo tauri build
+  artifacts:
+    paths:
+      - src-tauri/target/release/bundle/msi/*.msi
+      - src-tauri/target/release/bundle/nsis/*.exe
+    expire_in: 1 week
