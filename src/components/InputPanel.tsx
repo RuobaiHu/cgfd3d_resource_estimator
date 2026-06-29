@@ -7,6 +7,8 @@ interface Props {
   bounds: { latMin: number; latMax: number; lonMin: number; lonMax: number } | null;
 }
 
+const INVALID_PARAMS_MESSAGE = '请确保 Lx, Ly, Lz, fmax, Vs_min 均为有效数值';
+
 export default function InputPanel({ onCalculate, bounds }: Props) {
   const [fmax, setFmax] = useState<string>('2');
   const [lz, setLz] = useState<string>('20');
@@ -17,6 +19,7 @@ export default function InputPanel({ onCalculate, bounds }: Props) {
   const [lx, setLx] = useState<string>('');
   const [ly, setLy] = useState<string>('');
   const [autoTwin, setAutoTwin] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (bounds) {
@@ -49,9 +52,11 @@ export default function InputPanel({ onCalculate, bounds }: Props) {
     const twinVal = autoTwin ? undefined : (parseFloat(twin) || undefined);
 
     if (isNaN(lxVal) || isNaN(lyVal) || isNaN(lzVal) || isNaN(fmaxVal) || isNaN(vsMinVal)) {
-      alert('请确保 Lx, Ly, Lz, fmax, Vs_min 均为有效数值');
+      setErrorMessage(INVALID_PARAMS_MESSAGE);
       return;
     }
+
+    setErrorMessage(null);
 
     const params: FDMParams = {
       lxKm: lxVal,
@@ -173,6 +178,12 @@ export default function InputPanel({ onCalculate, bounds }: Props) {
         </label>
         <InfoTooltip text="自动估算的时间窗长度 T = 1.2 × ( 计算区域水平对角线长度的一半 / 最小S波波速 ) " />
       </div>
+
+      {errorMessage && (
+        <div role="alert" className="rounded border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700">
+          {errorMessage}
+        </div>
+      )}
 
       <button
         onClick={handleCalculate}
