@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="144" x2="880" y1="96" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1d5fd7"/>
+      <stop offset="0.52" stop-color="#0f3f9f"/>
+      <stop offset="1" stop-color="#062761"/>
+    </linearGradient>
+    <linearGradient id="mapPanel" x1="236" x2="798" y1="244" y2="804" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eef8ff"/>
+      <stop offset="0.54" stop-color="#b9dcf1"/>
+      <stop offset="1" stop-color="#7fb7d7"/>
+    </linearGradient>
+    <linearGradient id="ridge" x1="222" x2="822" y1="330" y2="742" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8efd8"/>
+      <stop offset="1" stop-color="#8fbca8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="34" stdDeviation="34" flood-color="#031333" flood-opacity="0.45"/>
+    </filter>
+    <clipPath id="panelClip">
+      <rect x="210" y="216" width="604" height="604" rx="126"/>
+    </clipPath>
+  </defs>
+
+  <rect x="64" y="64" width="896" height="896" rx="212" fill="url(#bg)"/>
+  <path d="M178 186c116-94 323-117 511-66 82 22 146 60 187 113-30-96-125-169-246-203C458-18 251 23 145 126 112 158 88 195 75 235c23-19 57-39 103-49Z" fill="#78b8ff" opacity="0.24"/>
+
+  <g filter="url(#shadow)">
+    <rect x="210" y="216" width="604" height="604" rx="126" fill="url(#mapPanel)"/>
+  </g>
+
+  <g clip-path="url(#panelClip)">
+    <path d="M150 430l86-58c34-23 75-20 106 8l62 56 83-82c42-42 107-39 146 6l45 52 61-44c44-32 101-31 144 3v505H150Z" fill="url(#ridge)" opacity="0.46"/>
+    <path d="M128 586l92-72c47-37 114-35 158 6l38 35 75-68c48-43 121-45 172-4l35 28 74-39c38-20 82-19 119 3v401H128Z" fill="#2e7fa9" opacity="0.2"/>
+    <path d="M176 712l89-68c42-32 99-35 144-8l61 37 87-62c44-31 103-30 145 4l40 32 78-38c27-13 58-14 86-3v270H176Z" fill="#1f6f8f" opacity="0.18"/>
+
+    <g stroke="#2d73bb" stroke-opacity="0.26" stroke-width="4">
+      <path d="M236 338H798"/>
+      <path d="M228 438H828"/>
+      <path d="M204 538H828"/>
+      <path d="M216 638H820"/>
+      <path d="M286 248V820"/>
+      <path d="M386 230V820"/>
+      <path d="M486 216V820"/>
+      <path d="M586 216V820"/>
+      <path d="M686 230V820"/>
+      <path d="M786 286V754"/>
+    </g>
+    <path d="M292 352h424c13 0 24 11 24 24v266c0 13-11 24-24 24H292c-13 0-24-11-24-24V376c0-13 11-24 24-24Z" fill="none" stroke="#df3434" stroke-width="18" stroke-linejoin="round" stroke-dasharray="42 30"/>
+
+    <circle cx="512" cy="520" r="58" fill="#155fc9"/>
+    <circle cx="512" cy="520" r="35" fill="#ffffff"/>
+    <circle cx="512" cy="520" r="15" fill="#d94343"/>
+    <path d="M512 430v180M422 520h180" stroke="#155fc9" stroke-width="10" stroke-linecap="round" opacity="0.75"/>
+  </g>
+
+  <g opacity="0.88">
+    <circle cx="302" cy="736" r="18" fill="#ffffff"/>
+    <circle cx="374" cy="760" r="13" fill="#cfe7ff"/>
+    <circle cx="452" cy="742" r="10" fill="#91caff"/>
+    <path d="M302 736h72l78 6" fill="none" stroke="#d8efff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>
